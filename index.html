@@ -8,225 +8,172 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:linear-gradient(135deg,#0f172a,#1e293b);color:white;}
+
+.hero{text-align:center;padding:50px 20px;}
+.hero h1{font-size:38px;}
+.hero p{color:#94a3b8;margin-top:8px;}
+.badge{display:inline-block;margin-top:15px;padding:8px 18px;border-radius:30px;background:linear-gradient(90deg,#22c55e,#16a34a);font-size:14px;}
+.night{background:linear-gradient(90deg,#f97316,#ea580c);margin-left:8px;}
+
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
+padding:40px;
 }
 
-body {
-  background: linear-gradient(135deg, #0f172a, #1e293b);
-  color: white;
+.card{
+background:rgba(255,255,255,0.05);
+border-radius:20px;
+padding:20px;
+text-align:center;
+transition:0.3s;
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
 }
 
-/* HERO */
-.hero {
-  text-align: center;
-  padding: 60px 20px 40px;
+.card:hover{
+transform:translateY(-8px);
+box-shadow:0 20px 40px rgba(0,0,0,0.5);
 }
 
-.hero h1 {
-  font-size: 40px;
-  font-weight: 700;
+.price{margin:10px 0;font-weight:600;}
+
+button{
+padding:8px 18px;
+border:none;
+border-radius:30px;
+cursor:pointer;
+background:linear-gradient(90deg,#3b82f6,#2563eb);
+color:white;
 }
 
-.hero p {
-  margin-top: 10px;
-  color: #94a3b8;
+.cart{
+background:rgba(255,255,255,0.07);
+margin:40px;
+padding:30px;
+border-radius:20px;
 }
 
-.badge {
-  display: inline-block;
-  margin-top: 15px;
-  padding: 8px 18px;
-  border-radius: 30px;
-  background: linear-gradient(90deg, #22c55e, #16a34a);
-  font-size: 14px;
+input,select{
+width:100%;
+padding:10px;
+margin-top:10px;
+border-radius:10px;
+border:none;
 }
 
-.night {
-  margin-top: 10px;
-  background: linear-gradient(90deg, #f97316, #ea580c);
+.confirm{
+margin-top:15px;
+width:100%;
+padding:12px;
 }
 
-/* PRODUCTS */
-.products {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 25px;
-  padding: 40px;
+.footer{
+text-align:center;
+padding:30px;
+background:rgba(0,0,0,0.3);
 }
 
-.card {
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(12px);
-  border-radius: 20px;
-  padding: 20px;
-  text-align: center;
-  transition: 0.3s;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-}
-
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-}
-
-.card h3 {
-  margin-bottom: 10px;
-}
-
-.price {
-  font-size: 18px;
-  font-weight: 600;
-  margin: 10px 0;
-}
-
-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  background: linear-gradient(90deg, #3b82f6, #2563eb);
-  color: white;
-  transition: 0.3s;
-}
-
-button:hover {
-  transform: scale(1.05);
-}
-
-/* CART */
-.cart {
-  background: rgba(255,255,255,0.07);
-  margin: 40px;
-  padding: 30px;
-  border-radius: 20px;
-}
-
-input, select {
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 10px;
-  border: none;
-}
-
-.confirm {
-  margin-top: 15px;
-  width: 100%;
-  padding: 15px;
-  font-size: 16px;
-}
-
-/* FOOTER */
-.footer {
-  text-align: center;
-  padding: 30px;
-  background: rgba(0,0,0,0.3);
-  margin-top: 50px;
-}
-
-/* WHATSAPP FLOAT */
-.whatsapp {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #25D366;
-  color: white;
-  padding: 15px 18px;
-  border-radius: 50%;
-  font-size: 22px;
-  text-decoration: none;
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+color:white;
+padding:15px 18px;
+border-radius:50%;
+text-decoration:none;
+font-size:20px;
 }
 </style>
 </head>
-
 <body>
 
 <div class="hero">
-  <h1>Kuldeep Stationary Shop</h1>
-  <p>Order Online • Skip Line • Chakra Jammu</p>
-  <div class="badge">⏱ Pickup in 5 Minutes</div>
-  <div class="badge night">⚡ Emergency Night Pickup (+₹50)</div>
+<h1>Kuldeep Stationary Shop</h1>
+<p>Order Online • Skip Line • Chakra Jammu</p>
+<div class="badge">Pickup in 5 Minutes</div>
+<div class="badge night">Emergency Night Pickup (+₹50)</div>
 </div>
 
-<div class="products">
-  <div class="card">
-    <h3>Coke</h3>
-    <div class="price">₹20</div>
-    <button onclick="addToCart(20)">Add</button>
-  </div>
-
-  <div class="card">
-    <h3>Pepsi</h3>
-    <div class="price">₹20</div>
-    <button onclick="addToCart(20)">Add</button>
-  </div>
-
-  <div class="card">
-    <h3>Pen</h3>
-    <div class="price">₹10</div>
-    <button onclick="addToCart(10)">Add</button>
-  </div>
-
-  <div class="card">
-    <h3>Notebook</h3>
-    <div class="price">₹40</div>
-    <button onclick="addToCart(40)">Add</button>
-  </div>
-
-  <div class="card">
-    <h3>Chips</h3>
-    <div class="price">₹5</div>
-    <button onclick="addToCart(5)">Add</button>
-  </div>
-
-  <div class="card">
-    <h3>Earphones</h3>
-    <div class="price">₹100</div>
-    <button onclick="addToCart(100)">Add</button>
-  </div>
-</div>
+<div class="products" id="productContainer"></div>
 
 <div class="cart">
-  <h2>Cart</h2>
-  <p>Total: ₹<span id="total">0</span></p>
+<h2>Cart</h2>
+<p>Total: ₹<span id="total">0</span></p>
 
-  <input type="text" placeholder="Your Name" id="name">
-  <select id="pickup">
-    <option>Select Pickup Time</option>
-    <option>7:00 AM</option>
-    <option>8:00 AM</option>
-    <option>9:00 AM</option>
-    <option>10:00 AM</option>
-    <option>11:00 AM</option>
-    <option>12:00 PM</option>
-    <option>1:00 PM</option>
-    <option>2:00 PM</option>
-    <option>3:00 PM</option>
-    <option>4:00 PM</option>
-    <option>5:00 PM</option>
-    <option>6:00 PM</option>
-    <option>7:00 PM</option>
-    <option>8:00 PM</option>
-  </select>
+<input type="text" placeholder="Your Name" id="name">
+<select id="pickup">
+<option>Select Pickup Time</option>
+<option>7:00 AM</option>
+<option>9:00 AM</option>
+<option>11:00 AM</option>
+<option>1:00 PM</option>
+<option>3:00 PM</option>
+<option>5:00 PM</option>
+<option>7:00 PM</option>
+</select>
 
-  <button class="confirm" onclick="checkout()">Confirm & Pay</button>
+<button class="confirm" onclick="checkout()">Confirm & Pay</button>
 </div>
 
 <div class="footer">
-  📍 Chakra Jammu <br>
-  📞 7051525628 <br>
-  🕒 7:00 AM – 8:30 PM <br>
-  Minimum Order ₹30
+📍 Chakra Jammu <br>
+📞 7051525628 <br>
+🕒 7:00 AM – 8:30 PM <br>
+Minimum Order ₹30
 </div>
 
 <a class="whatsapp" href="https://wa.me/917051525628" target="_blank">💬</a>
 
 <script>
 let total = 0;
+
+const products = [];
+
+// Cold Drinks (20)
+for(let i=1;i<=20;i++){
+  products.push({name:"Cold Drink "+i, price:20});
+}
+
+// Chips (20)
+for(let i=1;i<=20;i++){
+  products.push({name:"Chips Packet "+i, price:10});
+}
+
+// Pens (20)
+for(let i=1;i<=20;i++){
+  products.push({name:"Pen "+i, price:10});
+}
+
+// Notebooks (20)
+for(let i=1;i<=20;i++){
+  products.push({name:"Notebook "+i, price:40});
+}
+
+// Electronics (20)
+for(let i=1;i<=20;i++){
+  products.push({name:"Electronic Item "+i, price:100});
+}
+
+// Disposable (20)
+for(let i=1;i<=20;i++){
+  products.push({name:"Disposable Item "+i, price:15});
+}
+
+const container = document.getElementById("productContainer");
+
+products.forEach(product=>{
+  container.innerHTML += `
+    <div class="card">
+      <h3>${product.name}</h3>
+      <div class="price">₹${product.price}</div>
+      <button onclick="addToCart(${product.price})">Add</button>
+    </div>
+  `;
+});
 
 function addToCart(price){
   total += price;
@@ -242,7 +189,7 @@ function checkout(){
   let name = document.getElementById("name").value;
   let pickup = document.getElementById("pickup").value;
 
-  if(name == "" || pickup == "Select Pickup Time"){
+  if(name=="" || pickup=="Select Pickup Time"){
     alert("Please fill all details");
     return;
   }
