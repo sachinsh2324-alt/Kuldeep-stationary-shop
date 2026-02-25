@@ -9,121 +9,125 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-body{background:#0f0f0f;color:#fff;overflow-x:hidden;}
+body{
+background:linear-gradient(135deg,#0a192f,#020c1b);
+color:white;
+overflow-x:hidden;
+}
+
+/* Tech Background */
+body::before{
+content:"";
+position:fixed;
+width:200%;
+height:200%;
+background:radial-gradient(circle,rgba(0,150,255,0.08) 1px,transparent 1px);
+background-size:50px 50px;
+animation:moveBg 20s linear infinite;
+z-index:-1;
+}
+@keyframes moveBg{
+0%{transform:translate(0,0);}
+100%{transform:translate(-200px,-200px);}
+}
+
+/* Header */
 header{
-background:rgba(0,0,0,0.8);
+background:rgba(10,25,47,0.9);
 backdrop-filter:blur(10px);
 padding:15px 5%;
 display:flex;
 justify-content:space-between;
 align-items:center;
-position:sticky;
-top:0;
-z-index:1000;
-border-bottom:1px solid gold;
+border-bottom:1px solid #00bfff;
 }
 .logo{
 font-size:22px;
 font-weight:700;
-color:gold;
-}
-.search input{
-padding:8px 15px;
-border-radius:30px;
-border:none;
-outline:none;
-width:250px;
+color:#00bfff;
+text-shadow:0 0 10px #00bfff;
 }
 .cart-btn{
-background:gold;
+background:#00bfff;
 color:#000;
 padding:8px 15px;
-border-radius:30px;
+border-radius:25px;
 cursor:pointer;
 font-weight:600;
+transition:0.3s;
 }
-.hero{
-text-align:center;
-padding:60px 20px;
-background:linear-gradient(to right,#000,#1a1a1a);
+.cart-btn:hover{
+transform:scale(1.05);
 }
-.hero h1{
-font-size:40px;
-color:gold;
-margin-bottom:10px;
-animation:glow 2s infinite alternate;
-}
-@keyframes glow{
-from{text-shadow:0 0 10px gold;}
-to{text-shadow:0 0 25px gold;}
-}
+
+/* Products */
 .products{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-gap:20px;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
 padding:40px 5%;
 }
 .card{
-background:#1a1a1a;
+background:rgba(255,255,255,0.05);
 padding:15px;
 border-radius:15px;
-transition:0.3s;
-border:1px solid #222;
+transition:0.4s;
+border:1px solid rgba(255,255,255,0.1);
+backdrop-filter:blur(8px);
 }
 .card:hover{
-transform:translateY(-5px);
-border:1px solid gold;
+transform:translateY(-8px) scale(1.03);
+box-shadow:0 0 25px #00bfff;
 }
 .card img{
 width:100%;
-height:150px;
+height:180px;
 object-fit:cover;
 border-radius:10px;
 }
-.card h3{
-margin:10px 0;
-font-size:16px;
-}
 .price{
-color:gold;
+color:#00bfff;
 font-weight:600;
-margin-bottom:10px;
+margin:8px 0;
 }
 button{
-background:gold;
+background:#00bfff;
 border:none;
 padding:8px 12px;
 border-radius:20px;
 cursor:pointer;
 font-weight:600;
+transition:0.3s;
 }
+button:hover{
+transform:scale(1.05);
+}
+
+/* Cart */
 .cart-panel{
 position:fixed;
 right:-400px;
 top:0;
 width:350px;
 height:100%;
-background:#111;
+background:#021526;
 padding:20px;
 transition:0.4s;
 overflow-y:auto;
 z-index:2000;
 }
 .cart-panel.active{right:0;}
-.cart-panel h2{color:gold;margin-bottom:15px;}
-.cart-item{margin-bottom:10px;font-size:14px;}
-.total{margin-top:15px;font-weight:600;color:gold;}
-.checkout{
-margin-top:15px;
-}
-input,select{
+.total{margin-top:10px;color:#00bfff;font-weight:600;}
+
+select,input{
 width:100%;
 padding:8px;
-margin-top:5px;
-margin-bottom:10px;
+margin:8px 0;
 border-radius:8px;
 border:none;
 }
+
+/* WhatsApp */
 .whatsapp{
 position:fixed;
 bottom:20px;
@@ -135,68 +139,55 @@ font-size:20px;
 color:#fff;
 text-decoration:none;
 }
+
 .footer{
 text-align:center;
 padding:20px;
-background:#000;
+border-top:1px solid #00bfff;
 margin-top:40px;
-border-top:1px solid gold;
 }
 </style>
 </head>
 <body>
 
 <header>
-<div class="logo">Kuldeep Stationary Shop</div>
-<div class="search"><input type="text" placeholder="Search products..."></div>
+<div class="logo">Kuldeep Stationary</div>
 <div class="cart-btn" onclick="toggleCart()">Cart</div>
 </header>
-
-<section class="hero">
-<h1>Order Online – Skip The Line</h1>
-<p>Pickup in 5 Minutes | 7AM – 8:30PM</p>
-</section>
 
 <section class="products" id="productContainer"></section>
 
 <div class="cart-panel" id="cartPanel">
-<h2>Your Cart</h2>
+<h2 style="color:#00bfff;">Your Cart</h2>
 <div id="cartItems"></div>
 <div class="total" id="totalAmount"></div>
 
-<div class="checkout">
-<label>Pickup Time Slot</label>
-<select id="pickupTime">
-<option value="">Select Time</option>
-<option>7:00 AM</option>
-<option>12:00 PM</option>
-<option>6:00 PM</option>
-<option>8:30 PM</option>
-<option>9:00 PM</option>
-<option>10:00 PM</option>
-</select>
+<label>Pickup Time</label>
+<select id="pickupTime"></select>
 
 <button onclick="checkout()">Pay Now</button>
 </div>
-</div>
 
-<a class="whatsapp" target="_blank" 
-href="https://wa.me/917051525628">💬</a>
+<a class="whatsapp" target="_blank" href="https://wa.me/917051525628">💬</a>
 
 <div class="footer">
-© 2026 Kuldeep Stationary Shop | City Chakra Jammu
+© 2026 Kuldeep Stationary | City Chakra Jammu
 </div>
 
 <script>
-let products=[];
+let products=[
+{name:"Notebook",price:40,img:"https://images.unsplash.com/photo-1586075010923-2dd4570fb338"},
+{name:"Pen Pack",price:30,img:"https://images.unsplash.com/photo-1588776814546-1ffcf47267a5"},
+{name:"Pencil Box",price:60,img:"https://images.unsplash.com/photo-1588776814633-1e8b4a5bc9a8"},
+{name:"Highlighter",price:25,img:"https://images.unsplash.com/photo-1588776814684-3bbd9f3b6f90"},
+{name:"A4 Sheets",price:120,img:"https://images.unsplash.com/photo-1588776814705-8e9a8c1a7c2e"}
+];
+
 let cart=[];
 
-for(let i=1;i<=100;i++){
-products.push({
-name:"Product "+i,
-price:Math.floor(Math.random()*50)+10,
-image:"https://source.unsplash.com/300x300/?stationary,shop,"+i
-});
+/* Duplicate products to reach 100 */
+while(products.length<100){
+products.push({...products[products.length%5]});
 }
 
 function loadProducts(){
@@ -204,19 +195,17 @@ let container=document.getElementById("productContainer");
 products.forEach((p,index)=>{
 container.innerHTML+=`
 <div class="card">
-<img src="${p.image}">
+<img src="${p.img}">
 <h3>${p.name}</h3>
 <div class="price">₹${p.price}</div>
-<button onclick="addToCart(${index})">Add to Cart</button>
-</div>
-`;
+<button onclick="addToCart(${index})">Add</button>
+</div>`;
 });
 }
 loadProducts();
 
 function addToCart(index){
 cart.push(products[index]);
-alert("Added to cart");
 updateCart();
 }
 
@@ -225,13 +214,13 @@ let cartDiv=document.getElementById("cartItems");
 cartDiv.innerHTML="";
 let total=0;
 cart.forEach(item=>{
-cartDiv.innerHTML+=`<div class="cart-item">${item.name} - ₹${item.price}</div>`;
+cartDiv.innerHTML+=`<div>${item.name} - ₹${item.price}</div>`;
 total+=item.price;
 });
-let hour=new Date().getHours();
-if(hour>=20 && hour<22){
-total+=50;
-}
+let now=new Date();
+let hour=now.getHours();
+let minutes=now.getMinutes();
+if(hour>=20 && hour<22){ total+=50; }
 document.getElementById("totalAmount").innerHTML="Total: ₹"+total;
 }
 
@@ -239,24 +228,33 @@ function toggleCart(){
 document.getElementById("cartPanel").classList.toggle("active");
 }
 
+/* 15 minute dynamic time slots */
+function generateTimeSlots(){
+let select=document.getElementById("pickupTime");
+select.innerHTML="";
+let now=new Date();
+for(let h=7;h<=22;h++){
+for(let m=0;m<60;m+=15){
+let slot=new Date();
+slot.setHours(h,m,0);
+if(slot>now && (h<22 || (h==22 && m==0))){
+let option=document.createElement("option");
+option.text=slot.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+select.add(option);
+}
+}
+}
+}
+generateTimeSlots();
+
 function checkout(){
-if(cart.length==0){
-alert("Cart Empty");
-return;
-}
+if(cart.length==0){alert("Cart Empty");return;}
 let total=cart.reduce((sum,i)=>sum+i.price,0);
-if(total<30){
-alert("Minimum order ₹30");
-return;
-}
-let hour=new Date().getHours();
-if(hour<7 || hour>=22){
-alert("Shop Closed");
-return;
-}
-if(hour>=20 && hour<22){
-total+=50;
-}
+if(total<30){alert("Minimum ₹30");return;}
+let now=new Date();
+let hour=now.getHours();
+if(hour<7 || hour>=22){alert("Shop Closed");return;}
+if(hour>=20 && hour<22){ total+=50; }
 let orderId="KS-"+Math.floor(Math.random()*1000000);
 alert("Payment Successful!\nOrder ID: "+orderId+"\nTotal: ₹"+total);
 cart=[];
