@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuldeep Stationary Shop</title>
+
+<style>
+body{
+margin:0;
+font-family:Segoe UI, sans-serif;
+background:linear-gradient(135deg,#0f172a,#1e293b);
+color:white;
+overflow-x:hidden;
+}
+
+header{
+background:#111827;
+padding:20px;
+text-align:center;
+font-size:24px;
+font-weight:bold;
+}
+
+.tabs{
+display:flex;
+justify-content:center;
+gap:10px;
+flex-wrap:wrap;
+margin:15px;
+}
+
+.tabs button{
+padding:8px 15px;
+border:none;
+border-radius:20px;
+background:#1e293b;
+color:white;
+cursor:pointer;
+transition:0.3s;
+}
+
+.tabs button:hover{
+background:#22c55e;
+}
+
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:15px;
+padding:20px;
+}
+
+.product{
+background:#1e293b;
+padding:15px;
+border-radius:12px;
+text-align:center;
+box-shadow:0 5px 15px rgba(0,0,0,0.4);
+animation:fadeIn 0.5s ease-in;
+}
+
+.product button{
+margin-top:10px;
+background:#22c55e;
+border:none;
+padding:8px;
+border-radius:6px;
+color:white;
+cursor:pointer;
+}
+
+.product button:disabled{
+background:gray;
+cursor:not-allowed;
+}
+
+.cart{
+background:#1e293b;
+margin:20px;
+padding:20px;
+border-radius:12px;
+}
+
+.checkout{
+background:#3b82f6;
+padding:12px;
+width:100%;
+border:none;
+border-radius:8px;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+.footer{
+background:#111827;
+text-align:center;
+padding:10px;
+margin-top:20px;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(10px);}
+to{opacity:1; transform:translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+Kuldeep Stationary Shop<br>
+<small>Order Online • Skip Line • Chakra Jammu</small>
+</header>
+
+<div class="tabs">
+<button onclick="filter('all')">All</button>
+<button onclick="filter('drink')">Cold Drinks</button>
+<button onclick="filter('stationary')">Stationary</button>
+<button onclick="filter('snack')">Snacks</button>
+<button onclick="filter('electronic')">Electronics</button>
+</div>
+
+<div class="products" id="products"></div>
+
+<div class="cart">
+<h3>Cart</h3>
+<div id="cartItems"></div>
+<p>Total: ₹<span id="total">0</span></p>
+
+<input type="text" id="name" placeholder="Your Name">
+<input type="text" id="time" placeholder="Pickup Time">
+
+<button class="checkout" onclick="checkout()">Confirm & Pay</button>
+</div>
+
+<div class="footer">
+Shop Timing: 7:00 AM – 8:30 PM | Min Order ₹30
+</div>
+
+<script>
+
+let productData=[
+{name:"Coke",price:20,category:"drink",stock:10},
+{name:"Pepsi",price:20,category:"drink",stock:5},
+{name:"Pen",price:10,category:"stationary",stock:20},
+{name:"Notebook",price:40,category:"stationary",stock:15},
+{name:"Chips",price:5,category:"snack",stock:25},
+{name:"Earphones",price:100,category:"electronic",stock:3}
+];
+
+let cart=[];
+let total=0;
+
+function renderProducts(filterCategory="all"){
+let container=document.getElementById("products");
+container.innerHTML="";
+productData.forEach((p,index)=>{
+if(filterCategory==="all" || p.category===filterCategory){
+container.innerHTML+=`
+<div class="product">
+<h4>${p.name}</h4>
+<p>₹${p.price}</p>
+<p>Stock: ${p.stock}</p>
+<button ${p.stock<=0?"disabled":""}
+onclick="addToCart(${index})">
+${p.stock<=0?"Out of Stock":"Add"}
+</button>
+</div>
+`;
+}
+});
+}
+
+function filter(cat){
+renderProducts(cat);
+}
+
+function addToCart(index){
+if(productData[index].stock<=0) return;
+
+productData[index].stock--;
+cart.push(productData[index]);
+total+=productData[index].price;
+renderProducts();
+renderCart();
+}
+
+function renderCart(){
+let div=document.getElementById("cartItems");
+div.innerHTML="";
+cart.forEach(item=>{
+div.innerHTML+=item.name+" - ₹"+item.price+"<br>";
+});
+document.getElementById("total").innerText=total;
+}
+
+function checkout(){
+
+let now=new Date();
+let hour=now.getHours();
+
+if(hour>=20 && hour>=20 && hour<7){
+alert("Shop Closed");
+return;
+}
+
+if(total<30){
+alert("Minimum order ₹30 required");
+return;
+}
+
+let emergency=0;
+if(hour>=20){
+emergency=50;
+}
+
+let finalAmount=total+emergency;
+let orderId="KS"+Math.floor(Math.random()*100000);
+
+let name=document.getElementById("name").value;
+let time=document.getElementById("time").value;
+let items=cart.map(i=>i.name).join(",");
+
+/* GOOGLE SHEET */
+fetch("https://script.google.com/macros/s/AKfycby7NGrsGPxSXa-oyjCpEaJV1n63KoDjKJEbwermGUgF4hKZmXGwGX1HdF3D-fej_WyVNg/exec?orderId="+orderId+
+"&name="+name+
+"&items="+items+
+"&total="+finalAmount+
+"&time="+time);
+
+/* WHATSAPP */
+window.open("https://wa.me/917051525628?text=Order ID:"+orderId+
+"%0AName:"+name+
+"%0AItems:"+items+
+"%0ATotal:₹"+finalAmount+
+"%0APickup:"+time,"_blank");
+
+/* PAYMENT */
+window.open("YOUR_PAYMENT_LINK","_blank");
+
+alert("Order Placed Successfully!");
+}
+
+renderProducts();
+
+</script>
+
+</body>
+</html>
