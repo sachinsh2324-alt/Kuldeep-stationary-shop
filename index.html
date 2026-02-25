@@ -4,257 +4,265 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kuldeep Stationary Shop</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-body{
-color:white;
-overflow-x:hidden;
-background: linear-gradient(-45deg,#0f172a,#1e293b,#0ea5e9,#0f172a);
-background-size:400% 400%;
-animation: gradientMove 12s ease infinite;
-}
-
-@keyframes gradientMove{
-0%{background-position:0% 50%;}
-50%{background-position:100% 50%;}
-100%{background-position:0% 50%;}
-}
-
-/* Floating particles */
-.particle{
-position:fixed;
-width:6px;
-height:6px;
-background:white;
-border-radius:50%;
-opacity:0.3;
-animation:float 20s linear infinite;
-}
-@keyframes float{
-from{transform:translateY(100vh);}
-to{transform:translateY(-10vh);}
-}
-
-/* HERO */
-.hero{text-align:center;padding:40px 20px;}
-.hero h1{font-size:38px;}
-
-/* PRODUCTS */
-.products{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:30px;
-padding:40px;
-}
-
-.card{
-background:rgba(255,255,255,0.1);
-border-radius:20px;
-padding:20px;
-text-align:center;
-backdrop-filter:blur(15px);
-box-shadow:0 10px 40px rgba(0,0,0,0.5);
-transition:0.3s;
-transform-style:preserve-3d;
-}
-
-.card:hover{
-transform:rotateY(8deg) rotateX(6deg) scale(1.05);
-}
-
-.product-img{
-height:120px;
+body{background:#0f0f0f;color:#fff;overflow-x:hidden;}
+header{
+background:rgba(0,0,0,0.8);
+backdrop-filter:blur(10px);
+padding:15px 5%;
 display:flex;
+justify-content:space-between;
 align-items:center;
-justify-content:center;
-font-size:45px;
-border-radius:15px;
-background:linear-gradient(135deg,#3b82f6,#06b6d4);
-margin-bottom:15px;
-box-shadow:0 0 25px rgba(59,130,246,0.8);
+position:sticky;
+top:0;
+z-index:1000;
+border-bottom:1px solid gold;
 }
-
-.price{margin:10px 0;font-weight:600;}
-
-.card button{
-padding:8px 18px;
+.logo{
+font-size:22px;
+font-weight:700;
+color:gold;
+}
+.search input{
+padding:8px 15px;
+border-radius:30px;
 border:none;
-border-radius:25px;
-background:#22c55e;
-color:white;
+outline:none;
+width:250px;
+}
+.cart-btn{
+background:gold;
+color:#000;
+padding:8px 15px;
+border-radius:30px;
 cursor:pointer;
 font-weight:600;
+}
+.hero{
+text-align:center;
+padding:60px 20px;
+background:linear-gradient(to right,#000,#1a1a1a);
+}
+.hero h1{
+font-size:40px;
+color:gold;
+margin-bottom:10px;
+animation:glow 2s infinite alternate;
+}
+@keyframes glow{
+from{text-shadow:0 0 10px gold;}
+to{text-shadow:0 0 25px gold;}
+}
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+padding:40px 5%;
+}
+.card{
+background:#1a1a1a;
+padding:15px;
+border-radius:15px;
 transition:0.3s;
+border:1px solid #222;
 }
-.card button:hover{transform:scale(1.1);}
-
-/* CART */
-.cart{
-background:rgba(0,0,0,0.5);
-margin:40px;
-padding:25px;
+.card:hover{
+transform:translateY(-5px);
+border:1px solid gold;
+}
+.card img{
+width:100%;
+height:150px;
+object-fit:cover;
+border-radius:10px;
+}
+.card h3{
+margin:10px 0;
+font-size:16px;
+}
+.price{
+color:gold;
+font-weight:600;
+margin-bottom:10px;
+}
+button{
+background:gold;
+border:none;
+padding:8px 12px;
 border-radius:20px;
-backdrop-filter:blur(20px);
+cursor:pointer;
+font-weight:600;
 }
-
+.cart-panel{
+position:fixed;
+right:-400px;
+top:0;
+width:350px;
+height:100%;
+background:#111;
+padding:20px;
+transition:0.4s;
+overflow-y:auto;
+z-index:2000;
+}
+.cart-panel.active{right:0;}
+.cart-panel h2{color:gold;margin-bottom:15px;}
+.cart-item{margin-bottom:10px;font-size:14px;}
+.total{margin-top:15px;font-weight:600;color:gold;}
+.checkout{
+margin-top:15px;
+}
 input,select{
 width:100%;
 padding:8px;
-margin-top:10px;
+margin-top:5px;
+margin-bottom:10px;
 border-radius:8px;
 border:none;
 }
-
-.confirm{
-margin-top:15px;
-padding:12px;
-width:100%;
-border:none;
-border-radius:10px;
-background:#f97316;
-cursor:pointer;
-font-weight:600;
-}
-
-.footer{
-text-align:center;
-padding:25px;
-background:rgba(0,0,0,0.6);
-}
-
 .whatsapp{
 position:fixed;
 bottom:20px;
 right:20px;
 background:#25D366;
-color:white;
-padding:18px;
+padding:15px;
 border-radius:50%;
-font-size:22px;
+font-size:20px;
+color:#fff;
 text-decoration:none;
-box-shadow:0 0 20px #25D366;
 }
-.cart-count{
-position:fixed;
-top:20px;
-right:20px;
-background:red;
-padding:8px 14px;
-border-radius:50%;
-font-weight:bold;
+.footer{
+text-align:center;
+padding:20px;
+background:#000;
+margin-top:40px;
+border-top:1px solid gold;
 }
 </style>
 </head>
-
 <body>
 
-<div class="hero">
-<h1>Kuldeep Stationary Shop</h1>
-<p>Order Online • Skip Line • Chakra Jammu</p>
-</div>
+<header>
+<div class="logo">Kuldeep Stationary Shop</div>
+<div class="search"><input type="text" placeholder="Search products..."></div>
+<div class="cart-btn" onclick="toggleCart()">Cart</div>
+</header>
 
-<div class="cart-count" id="cartCount">0</div>
+<section class="hero">
+<h1>Order Online – Skip The Line</h1>
+<p>Pickup in 5 Minutes | 7AM – 8:30PM</p>
+</section>
 
-<div class="products" id="productContainer"></div>
+<section class="products" id="productContainer"></section>
 
-<div class="cart">
-<h2>Total: ₹<span id="total">0</span></h2>
+<div class="cart-panel" id="cartPanel">
+<h2>Your Cart</h2>
+<div id="cartItems"></div>
+<div class="total" id="totalAmount"></div>
 
-<label><input type="checkbox" id="nightService"> Night Emergency (+₹50)</label>
-
-<input type="text" placeholder="Your Name" id="name">
-<select id="pickup">
-<option>Select Pickup Time</option>
+<div class="checkout">
+<label>Pickup Time Slot</label>
+<select id="pickupTime">
+<option value="">Select Time</option>
 <option>7:00 AM</option>
-<option>9:00 AM</option>
-<option>11:00 AM</option>
-<option>1:00 PM</option>
-<option>3:00 PM</option>
-<option>5:00 PM</option>
-<option>7:00 PM</option>
+<option>12:00 PM</option>
+<option>6:00 PM</option>
+<option>8:30 PM</option>
+<option>9:00 PM</option>
+<option>10:00 PM</option>
 </select>
 
-<button class="confirm" onclick="checkout()">Place Order</button>
+<button onclick="checkout()">Pay Now</button>
 </div>
+</div>
+
+<a class="whatsapp" target="_blank" 
+href="https://wa.me/917051525628">💬</a>
 
 <div class="footer">
-📍 Chakra Jammu | 📞 7051525628 | 🕒 7AM–8:30PM
+© 2026 Kuldeep Stationary Shop | City Chakra Jammu
 </div>
 
-<a class="whatsapp" href="https://wa.me/917051525628" target="_blank">💬</a>
-
-<!-- Sound -->
-<audio id="cartSound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3"></audio>
-
 <script>
-let total=0;
-let cartItems=[];
 let products=[];
-let icons=["🥤","🍟","📒","✏️","🔌","🎧","🖊️","📦"];
+let cart=[];
 
-for(let i=1;i<=120;i++){
+for(let i=1;i<=100;i++){
 products.push({
 name:"Product "+i,
-price:Math.floor(Math.random()*90)+10,
-icon:icons[i%icons.length]
+price:Math.floor(Math.random()*50)+10,
+image:"https://source.unsplash.com/300x300/?stationary,shop,"+i
 });
 }
 
-function generateOrderID(){
-return "KSJ"+Date.now();
-}
-
-function displayProducts(){
+function loadProducts(){
 let container=document.getElementById("productContainer");
-products.forEach((p,i)=>{
+products.forEach((p,index)=>{
 container.innerHTML+=`
 <div class="card">
-<div class="product-img">${p.icon}</div>
+<img src="${p.image}">
 <h3>${p.name}</h3>
 <div class="price">₹${p.price}</div>
-<button onclick="addToCart(${i})">Add</button>
+<button onclick="addToCart(${index})">Add to Cart</button>
 </div>
 `;
 });
 }
+loadProducts();
 
-function addToCart(i){
-total+=products[i].price;
-cartItems.push(products[i]);
-document.getElementById("total").innerText=total;
-document.getElementById("cartCount").innerText=cartItems.length;
-document.getElementById("cartSound").play();
+function addToCart(index){
+cart.push(products[index]);
+alert("Added to cart");
+updateCart();
+}
+
+function updateCart(){
+let cartDiv=document.getElementById("cartItems");
+cartDiv.innerHTML="";
+let total=0;
+cart.forEach(item=>{
+cartDiv.innerHTML+=`<div class="cart-item">${item.name} - ₹${item.price}</div>`;
+total+=item.price;
+});
+let hour=new Date().getHours();
+if(hour>=20 && hour<22){
+total+=50;
+}
+document.getElementById("totalAmount").innerHTML="Total: ₹"+total;
+}
+
+function toggleCart(){
+document.getElementById("cartPanel").classList.toggle("active");
 }
 
 function checkout(){
-if(total<30){alert("Minimum order ₹30 required");return;}
-let name=document.getElementById("name").value;
-let pickup=document.getElementById("pickup").value;
-if(name==""||pickup=="Select Pickup Time"){alert("Fill details");return;}
-
-let finalTotal=total;
-if(document.getElementById("nightService").checked){finalTotal+=50;}
-
-let orderID=generateOrderID();
-let message="🛒 Order ID: "+orderID+"%0A";
-cartItems.forEach(i=>{message+=i.name+" - ₹"+i.price+"%0A";});
-message+="Total: ₹"+finalTotal+"%0AName: "+name+"%0APickup: "+pickup;
-
-window.open("https://wa.me/917051525628?text="+message);
+if(cart.length==0){
+alert("Cart Empty");
+return;
 }
-
-/* Generate floating particles */
-for(let i=0;i<25;i++){
-let p=document.createElement("div");
-p.className="particle";
-p.style.left=Math.random()*100+"vw";
-p.style.animationDuration=(10+Math.random()*20)+"s";
-document.body.appendChild(p);
+let total=cart.reduce((sum,i)=>sum+i.price,0);
+if(total<30){
+alert("Minimum order ₹30");
+return;
 }
-
-displayProducts();
+let hour=new Date().getHours();
+if(hour<7 || hour>=22){
+alert("Shop Closed");
+return;
+}
+if(hour>=20 && hour<22){
+total+=50;
+}
+let orderId="KS-"+Math.floor(Math.random()*1000000);
+alert("Payment Successful!\nOrder ID: "+orderId+"\nTotal: ₹"+total);
+cart=[];
+updateCart();
+toggleCart();
+}
 </script>
 
 </body>
