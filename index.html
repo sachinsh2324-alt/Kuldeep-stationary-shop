@@ -1,250 +1,254 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kuldeep Stationary Shop</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
 <style>
-body{
-margin:0;
-font-family:Segoe UI, sans-serif;
-background:linear-gradient(135deg,#0f172a,#1e293b);
-color:white;
-overflow-x:hidden;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
-header{
-background:#111827;
-padding:20px;
-text-align:center;
-font-size:24px;
-font-weight:bold;
+body {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: white;
 }
 
-.tabs{
-display:flex;
-justify-content:center;
-gap:10px;
-flex-wrap:wrap;
-margin:15px;
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 60px 20px 40px;
 }
 
-.tabs button{
-padding:8px 15px;
-border:none;
-border-radius:20px;
-background:#1e293b;
-color:white;
-cursor:pointer;
-transition:0.3s;
+.hero h1 {
+  font-size: 40px;
+  font-weight: 700;
 }
 
-.tabs button:hover{
-background:#22c55e;
+.hero p {
+  margin-top: 10px;
+  color: #94a3b8;
 }
 
-.products{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-gap:15px;
-padding:20px;
+.badge {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 8px 18px;
+  border-radius: 30px;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  font-size: 14px;
 }
 
-.product{
-background:#1e293b;
-padding:15px;
-border-radius:12px;
-text-align:center;
-box-shadow:0 5px 15px rgba(0,0,0,0.4);
-animation:fadeIn 0.5s ease-in;
+.night {
+  margin-top: 10px;
+  background: linear-gradient(90deg, #f97316, #ea580c);
 }
 
-.product button{
-margin-top:10px;
-background:#22c55e;
-border:none;
-padding:8px;
-border-radius:6px;
-color:white;
-cursor:pointer;
+/* PRODUCTS */
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+  padding: 40px;
 }
 
-.product button:disabled{
-background:gray;
-cursor:not-allowed;
+.card {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  transition: 0.3s;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
-.cart{
-background:#1e293b;
-margin:20px;
-padding:20px;
-border-radius:12px;
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
 }
 
-.checkout{
-background:#3b82f6;
-padding:12px;
-width:100%;
-border:none;
-border-radius:8px;
-color:white;
-font-size:16px;
-cursor:pointer;
+.card h3 {
+  margin-bottom: 10px;
 }
 
-.footer{
-background:#111827;
-text-align:center;
-padding:10px;
-margin-top:20px;
+.price {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 10px 0;
 }
 
-@keyframes fadeIn{
-from{opacity:0; transform:translateY(10px);}
-to{opacity:1; transform:translateY(0);}
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
+  color: white;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* CART */
+.cart {
+  background: rgba(255,255,255,0.07);
+  margin: 40px;
+  padding: 30px;
+  border-radius: 20px;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: none;
+}
+
+.confirm {
+  margin-top: 15px;
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+}
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding: 30px;
+  background: rgba(0,0,0,0.3);
+  margin-top: 50px;
+}
+
+/* WHATSAPP FLOAT */
+.whatsapp {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25D366;
+  color: white;
+  padding: 15px 18px;
+  border-radius: 50%;
+  font-size: 22px;
+  text-decoration: none;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-Kuldeep Stationary Shop<br>
-<small>Order Online • Skip Line • Chakra Jammu</small>
-</header>
-
-<div class="tabs">
-<button onclick="filter('all')">All</button>
-<button onclick="filter('drink')">Cold Drinks</button>
-<button onclick="filter('stationary')">Stationary</button>
-<button onclick="filter('snack')">Snacks</button>
-<button onclick="filter('electronic')">Electronics</button>
+<div class="hero">
+  <h1>Kuldeep Stationary Shop</h1>
+  <p>Order Online • Skip Line • Chakra Jammu</p>
+  <div class="badge">⏱ Pickup in 5 Minutes</div>
+  <div class="badge night">⚡ Emergency Night Pickup (+₹50)</div>
 </div>
 
-<div class="products" id="products"></div>
+<div class="products">
+  <div class="card">
+    <h3>Coke</h3>
+    <div class="price">₹20</div>
+    <button onclick="addToCart(20)">Add</button>
+  </div>
+
+  <div class="card">
+    <h3>Pepsi</h3>
+    <div class="price">₹20</div>
+    <button onclick="addToCart(20)">Add</button>
+  </div>
+
+  <div class="card">
+    <h3>Pen</h3>
+    <div class="price">₹10</div>
+    <button onclick="addToCart(10)">Add</button>
+  </div>
+
+  <div class="card">
+    <h3>Notebook</h3>
+    <div class="price">₹40</div>
+    <button onclick="addToCart(40)">Add</button>
+  </div>
+
+  <div class="card">
+    <h3>Chips</h3>
+    <div class="price">₹5</div>
+    <button onclick="addToCart(5)">Add</button>
+  </div>
+
+  <div class="card">
+    <h3>Earphones</h3>
+    <div class="price">₹100</div>
+    <button onclick="addToCart(100)">Add</button>
+  </div>
+</div>
 
 <div class="cart">
-<h3>Cart</h3>
-<div id="cartItems"></div>
-<p>Total: ₹<span id="total">0</span></p>
+  <h2>Cart</h2>
+  <p>Total: ₹<span id="total">0</span></p>
 
-<input type="text" id="name" placeholder="Your Name">
-<input type="text" id="time" placeholder="Pickup Time">
+  <input type="text" placeholder="Your Name" id="name">
+  <select id="pickup">
+    <option>Select Pickup Time</option>
+    <option>7:00 AM</option>
+    <option>8:00 AM</option>
+    <option>9:00 AM</option>
+    <option>10:00 AM</option>
+    <option>11:00 AM</option>
+    <option>12:00 PM</option>
+    <option>1:00 PM</option>
+    <option>2:00 PM</option>
+    <option>3:00 PM</option>
+    <option>4:00 PM</option>
+    <option>5:00 PM</option>
+    <option>6:00 PM</option>
+    <option>7:00 PM</option>
+    <option>8:00 PM</option>
+  </select>
 
-<button class="checkout" onclick="checkout()">Confirm & Pay</button>
+  <button class="confirm" onclick="checkout()">Confirm & Pay</button>
 </div>
 
 <div class="footer">
-Shop Timing: 7:00 AM – 8:30 PM | Min Order ₹30
+  📍 Chakra Jammu <br>
+  📞 7051525628 <br>
+  🕒 7:00 AM – 8:30 PM <br>
+  Minimum Order ₹30
 </div>
+
+<a class="whatsapp" href="https://wa.me/917051525628" target="_blank">💬</a>
 
 <script>
+let total = 0;
 
-let productData=[
-{name:"Coke",price:20,category:"drink",stock:10},
-{name:"Pepsi",price:20,category:"drink",stock:5},
-{name:"Pen",price:10,category:"stationary",stock:20},
-{name:"Notebook",price:40,category:"stationary",stock:15},
-{name:"Chips",price:5,category:"snack",stock:25},
-{name:"Earphones",price:100,category:"electronic",stock:3}
-];
-
-let cart=[];
-let total=0;
-
-function renderProducts(filterCategory="all"){
-let container=document.getElementById("products");
-container.innerHTML="";
-productData.forEach((p,index)=>{
-if(filterCategory==="all" || p.category===filterCategory){
-container.innerHTML+=`
-<div class="product">
-<h4>${p.name}</h4>
-<p>₹${p.price}</p>
-<p>Stock: ${p.stock}</p>
-<button ${p.stock<=0?"disabled":""}
-onclick="addToCart(${index})">
-${p.stock<=0?"Out of Stock":"Add"}
-</button>
-</div>
-`;
-}
-});
-}
-
-function filter(cat){
-renderProducts(cat);
-}
-
-function addToCart(index){
-if(productData[index].stock<=0) return;
-
-productData[index].stock--;
-cart.push(productData[index]);
-total+=productData[index].price;
-renderProducts();
-renderCart();
-}
-
-function renderCart(){
-let div=document.getElementById("cartItems");
-div.innerHTML="";
-cart.forEach(item=>{
-div.innerHTML+=item.name+" - ₹"+item.price+"<br>";
-});
-document.getElementById("total").innerText=total;
+function addToCart(price){
+  total += price;
+  document.getElementById("total").innerText = total;
 }
 
 function checkout(){
+  if(total < 30){
+    alert("Minimum order ₹30 required");
+    return;
+  }
 
-let now=new Date();
-let hour=now.getHours();
+  let name = document.getElementById("name").value;
+  let pickup = document.getElementById("pickup").value;
 
-if(hour>=20 && hour>=20 && hour<7){
-alert("Shop Closed");
-return;
+  if(name == "" || pickup == "Select Pickup Time"){
+    alert("Please fill all details");
+    return;
+  }
+
+  alert("Order Confirmed! Please collect at selected time.");
 }
-
-if(total<30){
-alert("Minimum order ₹30 required");
-return;
-}
-
-let emergency=0;
-if(hour>=20){
-emergency=50;
-}
-
-let finalAmount=total+emergency;
-let orderId="KS"+Math.floor(Math.random()*100000);
-
-let name=document.getElementById("name").value;
-let time=document.getElementById("time").value;
-let items=cart.map(i=>i.name).join(",");
-
-/* GOOGLE SHEET */
-fetch("https://script.google.com/macros/s/AKfycby7NGrsGPxSXa-oyjCpEaJV1n63KoDjKJEbwermGUgF4hKZmXGwGX1HdF3D-fej_WyVNg/exec?orderId="+orderId+
-"&name="+name+
-"&items="+items+
-"&total="+finalAmount+
-"&time="+time);
-
-/* WHATSAPP */
-window.open("https://wa.me/917051525628?text=Order ID:"+orderId+
-"%0AName:"+name+
-"%0AItems:"+items+
-"%0ATotal:₹"+finalAmount+
-"%0APickup:"+time,"_blank");
-
-/* PAYMENT */
-window.open("YOUR_PAYMENT_LINK","_blank");
-
-alert("Order Placed Successfully!");
-}
-
-renderProducts();
-
 </script>
 
 </body>
