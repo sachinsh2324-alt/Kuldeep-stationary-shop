@@ -248,15 +248,51 @@ select.add(option);
 generateTimeSlots();
 
 function checkout(){
+
 if(cart.length==0){alert("Cart Empty");return;}
+
 let total=cart.reduce((sum,i)=>sum+i.price,0);
+
 if(total<30){alert("Minimum ₹30");return;}
+
 let now=new Date();
 let hour=now.getHours();
+
 if(hour<7 || hour>=22){alert("Shop Closed");return;}
+
 if(hour>=20 && hour<22){ total+=50; }
-let orderId="KS-"+Math.floor(Math.random()*1000000);
-alert("Payment Successful!\nOrder ID: "+orderId+"\nTotal: ₹"+total);
+
+/* Secure Order ID */
+let timestamp=Date.now();
+let random=Math.floor(Math.random()*1000);
+let orderId="KS-"+timestamp.toString().slice(-6)+"-"+random;
+
+/* Secret verification PIN */
+let verifyPin=Math.floor(1000 + Math.random() * 9000);
+
+/* Save locally */
+localStorage.setItem(orderId,verifyPin);
+
+/* Customer Message */
+let customerMsg=`Order Confirmed!
+Order ID: ${orderId}
+Verification PIN: ${verifyPin}
+Total: ₹${total}
+Show this at pickup.`;
+
+/* Shop Message */
+let shopMsg=`New Order Received
+Order ID: ${orderId}
+Verification PIN: ${verifyPin}
+Total: ₹${total}`;
+
+/* Send to your WhatsApp */
+let shopNumber="917051525628"; // your number
+window.open(`https://wa.me/${shopNumber}?text=${encodeURIComponent(shopMsg)}`);
+
+/* Show to customer */
+alert(customerMsg);
+
 cart=[];
 updateCart();
 toggleCart();
