@@ -9,9 +9,17 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 body{
-background:linear-gradient(135deg,#0f172a,#1e293b);
 color:white;
 overflow-x:hidden;
+background: linear-gradient(-45deg, #0f172a, #1e293b, #0ea5e9, #0f172a);
+background-size: 400% 400%;
+animation: gradientMove 15s ease infinite;
+}
+
+@keyframes gradientMove {
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
 }
 
 /* HERO */
@@ -21,120 +29,102 @@ padding:50px 20px;
 animation:fadeDown 1s ease;
 }
 .hero h1{font-size:38px;}
-.hero p{color:#94a3b8;margin-top:10px;}
-.badge{
-display:inline-block;
-margin:10px 5px;
-padding:8px 16px;
-border-radius:30px;
-font-size:13px;
-background:#22c55e;
-}
-.night{background:#f97316;}
+.hero p{color:#cbd5e1;margin-top:10px;}
 
 @keyframes fadeDown{
 from{opacity:0;transform:translateY(-20px);}
 to{opacity:1;transform:translateY(0);}
 }
 
-/* CONTROLS */
-.controls{text-align:center;margin:20px;}
-.controls button{
-margin:5px;
-padding:8px 15px;
-border:none;
-border-radius:20px;
-background:#334155;
-color:white;
-cursor:pointer;
-transition:0.3s;
-}
-.controls button:hover{background:#3b82f6;}
-
-.search{
-display:block;
-margin:15px auto;
-padding:10px;
-width:280px;
-border-radius:10px;
-border:none;
-}
-
 /* PRODUCTS */
 .products{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-gap:25px;
-padding:30px;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:30px;
+padding:40px;
 }
 
 .card{
-background:rgba(255,255,255,0.06);
+background:rgba(255,255,255,0.1);
 border-radius:20px;
-padding:15px;
+padding:20px;
 text-align:center;
-backdrop-filter:blur(10px);
+backdrop-filter:blur(15px);
+box-shadow:0 10px 40px rgba(0,0,0,0.4);
 transition:0.4s;
-box-shadow:0 10px 25px rgba(0,0,0,0.3);
-animation:fadeUp 0.8s ease;
-}
-
-.card:hover{
-transform:translateY(-8px);
-box-shadow:0 20px 40px rgba(0,0,0,0.6);
+position:relative;
+overflow:hidden;
+animation:fadeUp 1s ease;
 }
 
 @keyframes fadeUp{
-from{opacity:0;transform:translateY(20px);}
+from{opacity:0;transform:translateY(30px);}
 to{opacity:1;transform:translateY(0);}
 }
 
+.card::before{
+content:"";
+position:absolute;
+top:-50%;
+left:-50%;
+width:200%;
+height:200%;
+background:linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+transform:rotate(45deg);
+transition:0.7s;
+}
+
+.card:hover::before{
+left:100%;
+}
+
+.card:hover{
+transform:translateY(-10px) scale(1.03);
+}
+
 .product-img{
-height:120px;
+height:130px;
 border-radius:15px;
-margin-bottom:10px;
-background:linear-gradient(45deg,#3b82f6,#06b6d4);
+margin-bottom:15px;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:18px;
-font-weight:600;
-transition:0.4s;
+font-size:40px;
+background:linear-gradient(135deg,#3b82f6,#06b6d4);
+box-shadow:0 0 20px rgba(59,130,246,0.7);
 }
 
-.card:hover .product-img{
-transform:scale(1.05);
-}
-
-.price{margin:8px 0;font-weight:600;}
+.price{margin:10px 0;font-weight:600;}
 
 .card button{
-padding:7px 18px;
+padding:8px 20px;
 border:none;
-border-radius:20px;
-background:linear-gradient(90deg,#3b82f6,#2563eb);
+border-radius:25px;
+background:#22c55e;
 color:white;
 cursor:pointer;
+font-weight:600;
 transition:0.3s;
 }
 
 .card button:hover{
-transform:scale(1.08);
+background:#16a34a;
+transform:scale(1.1);
 }
 
 /* CART */
 .cart{
-background:rgba(255,255,255,0.08);
+background:rgba(0,0,0,0.4);
 margin:40px;
 padding:25px;
 border-radius:20px;
-backdrop-filter:blur(15px);
+backdrop-filter:blur(20px);
 }
 
 input,select{
 width:100%;
 padding:8px;
-margin-top:8px;
+margin-top:10px;
 border-radius:8px;
 border:none;
 }
@@ -145,33 +135,28 @@ padding:12px;
 width:100%;
 border:none;
 border-radius:10px;
-background:#22c55e;
+background:#f97316;
 cursor:pointer;
 font-weight:600;
-transition:0.3s;
 }
 
-.confirm:hover{transform:scale(1.03);}
-
-/* FOOTER */
 .footer{
 text-align:center;
 padding:30px;
-background:rgba(0,0,0,0.3);
+background:rgba(0,0,0,0.5);
 }
 
-/* FLOAT */
 .whatsapp{
 position:fixed;
 bottom:20px;
 right:20px;
 background:#25D366;
 color:white;
-padding:15px 18px;
+padding:18px;
 border-radius:50%;
-font-size:20px;
+font-size:22px;
 text-decoration:none;
-box-shadow:0 0 15px #25D366;
+box-shadow:0 0 20px #25D366;
 }
 </style>
 </head>
@@ -181,23 +166,12 @@ box-shadow:0 0 15px #25D366;
 <div class="hero">
 <h1>Kuldeep Stationary Shop</h1>
 <p>Order Online • Skip Line • Chakra Jammu</p>
-<div class="badge">Pickup in 5 Minutes</div>
-<div class="badge night">Emergency Night +₹50</div>
-</div>
-
-<div class="controls">
-<button onclick="filterCategory('All')">All</button>
-<button onclick="filterCategory('Drinks')">Drinks</button>
-<button onclick="filterCategory('Snacks')">Snacks</button>
-<button onclick="filterCategory('Stationary')">Stationary</button>
-<button onclick="filterCategory('Electronics')">Electronics</button>
-<input type="text" class="search" placeholder="Search product..." onkeyup="searchProduct(this.value)">
 </div>
 
 <div class="products" id="productContainer"></div>
 
 <div class="cart">
-<h2>Cart Total: ₹<span id="total">0</span></h2>
+<h2>Total: ₹<span id="total">0</span></h2>
 
 <label><input type="checkbox" id="nightService"> Night Emergency (+₹50)</label>
 
@@ -217,10 +191,7 @@ box-shadow:0 0 15px #25D366;
 </div>
 
 <div class="footer">
-📍 Chakra Jammu <br>
-📞 7051525628 <br>
-🕒 7:00 AM – 8:30 PM <br>
-Minimum Order ₹30
+📍 Chakra Jammu | 📞 7051525628 | 🕒 7AM–8:30PM
 </div>
 
 <a class="whatsapp" href="https://wa.me/917051525628" target="_blank">💬</a>
@@ -229,35 +200,28 @@ Minimum Order ₹30
 let total=0;
 let cartItems=[];
 let products=[];
-const categories=["Drinks","Snacks","Stationary","Electronics"];
 
-categories.forEach(cat=>{
-for(let i=1;i<=25;i++){
+const icons=["🥤","🍟","📒","✏️","🔌","🎧"];
+
+for(let i=1;i<=100;i++){
 products.push({
-name:cat+" Item "+i,
+name:"Product "+i,
 price:Math.floor(Math.random()*90)+10,
-category:cat
+icon:icons[i%icons.length]
 });
 }
-});
 
 function generateOrderID(){
 let now=new Date();
-return "KSJ"+now.getFullYear()+
-(now.getMonth()+1)+
-now.getDate()+
-now.getHours()+
-now.getMinutes()+
-Math.floor(Math.random()*100);
+return "KSJ"+now.getTime();
 }
 
-function displayProducts(list){
+function displayProducts(){
 const container=document.getElementById("productContainer");
-container.innerHTML="";
-list.forEach((p,i)=>{
+products.forEach((p,i)=>{
 container.innerHTML+=`
 <div class="card">
-<div class="product-img">${p.name}</div>
+<div class="product-img">${p.icon}</div>
 <h3>${p.name}</h3>
 <div class="price">₹${p.price}</div>
 <button onclick="addToCart(${i})">Add</button>
@@ -266,46 +230,30 @@ container.innerHTML+=`
 });
 }
 
-function addToCart(index){
-total+=products[index].price;
-cartItems.push(products[index]);
+function addToCart(i){
+total+=products[i].price;
+cartItems.push(products[i]);
 document.getElementById("total").innerText=total;
-}
-
-function filterCategory(cat){
-if(cat=="All"){displayProducts(products);}
-else{displayProducts(products.filter(p=>p.category==cat));}
-}
-
-function searchProduct(text){
-text=text.toLowerCase();
-displayProducts(products.filter(p=>p.name.toLowerCase().includes(text)));
 }
 
 function checkout(){
 if(total<30){alert("Minimum order ₹30 required");return;}
 let name=document.getElementById("name").value;
 let pickup=document.getElementById("pickup").value;
-if(name==""||pickup=="Select Pickup Time"){alert("Fill all details");return;}
+if(name==""||pickup=="Select Pickup Time"){alert("Fill details");return;}
 
-let night=document.getElementById("nightService").checked;
 let finalTotal=total;
-if(night){finalTotal+=50;}
+if(document.getElementById("nightService").checked){finalTotal+=50;}
 
 let orderID=generateOrderID();
-
-let message="🛒 Order ID: "+orderID+"%0A%0A";
-cartItems.forEach(i=>{
-message+=i.name+" - ₹"+i.price+"%0A";
-});
-message+="%0ATotal: ₹"+finalTotal+"%0A";
-message+="Pickup: "+pickup+"%0A";
-message+="Name: "+name;
+let message="Order ID: "+orderID+"%0A";
+cartItems.forEach(i=>{message+=i.name+" - ₹"+i.price+"%0A";});
+message+="Total: ₹"+finalTotal+"%0AName: "+name+"%0APickup: "+pickup;
 
 window.open("https://wa.me/917051525628?text="+message);
 }
 
-displayProducts(products);
+displayProducts();
 </script>
 
 </body>
