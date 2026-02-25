@@ -4,70 +4,94 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kuldeep Stationary Shop</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 body{background:linear-gradient(135deg,#0f172a,#1e293b);color:white;}
 
-.hero{text-align:center;padding:50px 20px;}
-.hero h1{font-size:38px;}
+.hero{text-align:center;padding:40px 20px;}
+.hero h1{font-size:36px;}
 .hero p{color:#94a3b8;margin-top:8px;}
-.badge{display:inline-block;margin-top:15px;padding:8px 18px;border-radius:30px;background:linear-gradient(90deg,#22c55e,#16a34a);font-size:14px;}
-.night{background:linear-gradient(90deg,#f97316,#ea580c);margin-left:8px;}
+.badge{display:inline-block;margin-top:10px;padding:6px 15px;border-radius:30px;background:#22c55e;font-size:13px;}
+.night{background:#f97316;margin-left:8px;}
+
+.controls{text-align:center;margin:20px;}
+.controls button{
+margin:5px;
+padding:8px 15px;
+border:none;
+border-radius:20px;
+background:#334155;
+color:white;
+cursor:pointer;
+}
+.controls button:hover{background:#3b82f6;}
+
+.search{
+display:block;
+margin:15px auto;
+padding:10px;
+width:300px;
+border-radius:10px;
+border:none;
+}
 
 .products{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:25px;
-padding:40px;
+gap:20px;
+padding:20px 40px;
 }
 
 .card{
 background:rgba(255,255,255,0.05);
-border-radius:20px;
 padding:20px;
+border-radius:15px;
 text-align:center;
 transition:0.3s;
-box-shadow:0 10px 25px rgba(0,0,0,0.3);
+box-shadow:0 10px 20px rgba(0,0,0,0.3);
 }
 
 .card:hover{
-transform:translateY(-8px);
-box-shadow:0 20px 40px rgba(0,0,0,0.5);
+transform:translateY(-5px);
+box-shadow:0 20px 30px rgba(0,0,0,0.5);
 }
 
 .price{margin:10px 0;font-weight:600;}
 
-button{
-padding:8px 18px;
+.card button{
+padding:6px 15px;
 border:none;
-border-radius:30px;
-cursor:pointer;
-background:linear-gradient(90deg,#3b82f6,#2563eb);
+border-radius:20px;
+background:#3b82f6;
 color:white;
+cursor:pointer;
 }
 
 .cart{
 background:rgba(255,255,255,0.07);
 margin:40px;
-padding:30px;
+padding:25px;
 border-radius:20px;
 }
 
 input,select{
 width:100%;
-padding:10px;
-margin-top:10px;
-border-radius:10px;
+padding:8px;
+margin-top:8px;
+border-radius:8px;
 border:none;
 }
 
 .confirm{
 margin-top:15px;
-width:100%;
 padding:12px;
+width:100%;
+background:#22c55e;
+border:none;
+border-radius:10px;
+cursor:pointer;
 }
 
 .footer{
@@ -84,18 +108,29 @@ background:#25D366;
 color:white;
 padding:15px 18px;
 border-radius:50%;
-text-decoration:none;
 font-size:20px;
+text-decoration:none;
 }
 </style>
 </head>
+
 <body>
 
 <div class="hero">
 <h1>Kuldeep Stationary Shop</h1>
 <p>Order Online • Skip Line • Chakra Jammu</p>
 <div class="badge">Pickup in 5 Minutes</div>
-<div class="badge night">Emergency Night Pickup (+₹50)</div>
+<div class="badge night">Emergency Night +₹50</div>
+</div>
+
+<div class="controls">
+<button onclick="filterCategory('All')">All</button>
+<button onclick="filterCategory('Drinks')">Drinks</button>
+<button onclick="filterCategory('Snacks')">Snacks</button>
+<button onclick="filterCategory('Stationary')">Stationary</button>
+<button onclick="filterCategory('Electronics')">Electronics</button>
+<button onclick="filterCategory('Disposable')">Disposable</button>
+<input type="text" class="search" placeholder="Search product..." onkeyup="searchProduct(this.value)">
 </div>
 
 <div class="products" id="productContainer"></div>
@@ -103,6 +138,8 @@ font-size:20px;
 <div class="cart">
 <h2>Cart</h2>
 <p>Total: ₹<span id="total">0</span></p>
+
+<label><input type="checkbox" id="nightService"> Night Emergency (+₹50)</label>
 
 <input type="text" placeholder="Your Name" id="name">
 <select id="pickup">
@@ -116,7 +153,7 @@ font-size:20px;
 <option>7:00 PM</option>
 </select>
 
-<button class="confirm" onclick="checkout()">Confirm & Pay</button>
+<button class="confirm" onclick="checkout()">Confirm & Send to WhatsApp</button>
 </div>
 
 <div class="footer">
@@ -129,73 +166,75 @@ Minimum Order ₹30
 <a class="whatsapp" href="https://wa.me/917051525628" target="_blank">💬</a>
 
 <script>
-let total = 0;
+let total=0;
+let cartItems=[];
+let products=[];
+const categories=["Drinks","Snacks","Stationary","Electronics","Disposable"];
 
-const products = [];
-
-// Cold Drinks (20)
+categories.forEach(cat=>{
 for(let i=1;i<=20;i++){
-  products.push({name:"Cold Drink "+i, price:20});
+products.push({
+name:cat+" Item "+i,
+price:Math.floor(Math.random()*90)+10,
+category:cat
+});
 }
-
-// Chips (20)
-for(let i=1;i<=20;i++){
-  products.push({name:"Chips Packet "+i, price:10});
-}
-
-// Pens (20)
-for(let i=1;i<=20;i++){
-  products.push({name:"Pen "+i, price:10});
-}
-
-// Notebooks (20)
-for(let i=1;i<=20;i++){
-  products.push({name:"Notebook "+i, price:40});
-}
-
-// Electronics (20)
-for(let i=1;i<=20;i++){
-  products.push({name:"Electronic Item "+i, price:100});
-}
-
-// Disposable (20)
-for(let i=1;i<=20;i++){
-  products.push({name:"Disposable Item "+i, price:15});
-}
-
-const container = document.getElementById("productContainer");
-
-products.forEach(product=>{
-  container.innerHTML += `
-    <div class="card">
-      <h3>${product.name}</h3>
-      <div class="price">₹${product.price}</div>
-      <button onclick="addToCart(${product.price})">Add</button>
-    </div>
-  `;
 });
 
-function addToCart(price){
-  total += price;
-  document.getElementById("total").innerText = total;
+function displayProducts(list){
+const container=document.getElementById("productContainer");
+container.innerHTML="";
+list.forEach((p,i)=>{
+container.innerHTML+=`
+<div class="card">
+<h3>${p.name}</h3>
+<div class="price">₹${p.price}</div>
+<button onclick="addToCart(${i})">Add</button>
+</div>
+`;
+});
+}
+
+function addToCart(index){
+total+=products[index].price;
+cartItems.push(products[index]);
+document.getElementById("total").innerText=total;
+}
+
+function filterCategory(cat){
+if(cat=="All"){displayProducts(products);}
+else{
+displayProducts(products.filter(p=>p.category==cat));
+}
+}
+
+function searchProduct(text){
+text=text.toLowerCase();
+displayProducts(products.filter(p=>p.name.toLowerCase().includes(text)));
 }
 
 function checkout(){
-  if(total < 30){
-    alert("Minimum order ₹30 required");
-    return;
-  }
+if(total<30){alert("Minimum order ₹30 required");return;}
+let name=document.getElementById("name").value;
+let pickup=document.getElementById("pickup").value;
+if(name==""||pickup=="Select Pickup Time"){alert("Fill all details");return;}
 
-  let name = document.getElementById("name").value;
-  let pickup = document.getElementById("pickup").value;
+let night=document.getElementById("nightService").checked;
+let finalTotal=total;
+if(night){finalTotal+=50;}
 
-  if(name=="" || pickup=="Select Pickup Time"){
-    alert("Please fill all details");
-    return;
-  }
+let message="Order from Kuldeep Shop%0A";
+cartItems.forEach(i=>{
+message+=i.name+" - ₹"+i.price+"%0A";
+});
+message+="Total: ₹"+finalTotal+"%0A";
+message+="Pickup: "+pickup+"%0A";
+message+="Name: "+name;
 
-  alert("Order Confirmed! Please collect at selected time.");
+window.open("https://wa.me/917051525628?text="+message);
 }
+
+displayProducts(products);
 </script>
 
 </body>
